@@ -16,18 +16,14 @@ var stringifyJSON = function(obj) {
   }
   if (Array.isArray(obj))
   {
-        _.each(obj, function(ele,index){
-        if (ele !== undefined)
-        result.push(stringifyJSON(ele));
-      })
-      return '[' + result.join(',') + ']';
- }
- if (typeof obj === 'object') {
+     return "[" + obj.map(function(el) { return stringifyJSON(el); }).join() + "]";
+  }
+  if (typeof obj === 'object') {
       _.each(obj, function(value,key){
         if(value !== undefined && typeof(value) !== 'function'){
           result.push(stringifyJSON(key) + ':' + stringifyJSON(value));
         }
-    })
+      })
     return "{" + result.join() + "}";
   } ;
 
